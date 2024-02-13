@@ -13,10 +13,10 @@ def main(page: Page):
             0.8, alignment=alignment.center_right,
         )
         page_2.controls[0].border_radius=border_radius.only(
-            topLeft=35,
-            topRight=0,
-            bottomLeft=35,
-            bottomRight=0
+            top_left=35,
+            top_right=0,
+            bottom_left=35,
+            bottom_right=0
         )
         page_2.update()
         
