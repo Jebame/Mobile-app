@@ -7,6 +7,12 @@ def main(page: Page):
     FG = "#3450a1"
     PINK = "#eb06ff"
     
+    def route_change(route):
+        page.views.clear()
+        page.views.append(
+            pages[page.route]
+    )
+    
     def shrink(e):
         page_2.controls[0].width = 120
         page_2.controls[0].scale = transform.Scale(
@@ -27,6 +33,46 @@ def main(page: Page):
         )
         page_2.update()
 
+    circle = Stack(
+    controls=[
+      Container(
+        width=100,
+        height=100,
+        border_radius=50,
+        bgcolor='white12'
+        ),
+      Container(
+                  gradient=SweepGradient(
+                      center=alignment.center,
+                      start_angle=0.0,
+                      end_angle=3,
+                      stops=[0.5,0.5],
+                  colors=['#00000000', PINK],
+                  ),
+                  width=100,
+                  height=100,
+                  border_radius=50,
+                  content=Row(alignment='center',
+                      controls=[
+                        Container(padding=padding.all(5),
+                          bgcolor=BG,
+                          width=90,height=90,
+                          border_radius=50,
+                          content=Container(bgcolor=FG,
+                            height=80,width=80,
+                            border_radius=40,
+                          content=CircleAvatar(opacity=0.8,
+                            foreground_image_url="https://images.unsplash.com/photo-1545912452-8aea7e25a3d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                            )
+                          )
+                          )
+                      ],
+                  ),
+              ),
+      
+        ]
+    )
+    
     create_task_view = Container(
         content=Container(on_click=lambda _:page.go('/'),
             height=40, width=40, content=Text('x'),)
@@ -129,13 +175,35 @@ def main(page: Page):
         
         content=Column(
             controls=[
-                Container(
+                Row(alignment='end',
+                    controls=[
+                        Container(
                     content=Text('<'),
                     height=50, width=50,
                     padding=padding.only(top=13, left=13),
                     border=border.all(color='white', width=1),border_radius=25,
                     on_click=lambda e:restore(e),
-                )
+                        )
+                 ]
+                ),
+                Container(height=20),
+                circle,
+                Text('Olivia\nMitchel', size=32, weight='bold'),
+                Container(height=20),
+                Row(controls=[
+                    Icon(icons.FAVORITE_BORDER_SHARP, color='white12'),
+                    Text('Templates', size=15, weight=FontWeight.W_300, color='white', font_family='poppins')
+                ]),
+                Container(height=5),
+                Row(controls=[
+                    Icon(icons.CARD_TRAVEL, color='white12'),
+                    Text('Templates', size=15, weight=FontWeight.W_300, color='white', font_family='poppins')
+                ]),
+                Container(height=5),
+                Row(controls=[
+                    Icon(icons.CALCULATE_OUTLINED, color='white12'),
+                    Text('Templates', size=15, weight=FontWeight.W_300, color='white', font_family='poppins')
+                ])
             ]
         )
     )
@@ -145,7 +213,7 @@ def main(page: Page):
                 width=400,
                 height=850,
                 bgcolor=FG,
-                animate = animation.Animation(600, AnimationCurve.BOUNCE_IN_OUT),
+                animate = animation.Animation(600, AnimationCurve.EASE_IN_OUT_BACK),
                 animate_scale = animation.Animation(400, curve='decelerate'),
                 border_radius= 35,
                 padding= padding.only(
@@ -183,12 +251,6 @@ def main(page: Page):
             ]
         )
     }
-
-    def route_change(route):
-        page.views.clear()
-        page.views.append(
-            pages[page.route]
-        )
 
     page.add(container)
 
