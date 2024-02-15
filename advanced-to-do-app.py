@@ -14,7 +14,7 @@ def main(page: Page):
     )
     
     def shrink(e):
-        page_2.controls[0].width = 120
+        page_2.controls[0].width = 200
         page_2.controls[0].scale = transform.Scale(
             0.8, alignment=alignment.center_right,
         )
@@ -72,7 +72,7 @@ def main(page: Page):
       
         ]
     )
-    
+        
     create_task_view = Container(
         width=400,
         height=850,
@@ -83,7 +83,7 @@ def main(page: Page):
         padding= padding.only(top=50, left=20, right=20, bottom=5),
         content=Column(
             controls=[
-                Row(alignment = 'spaceBetween',
+                Row(alignment = 'right',
                     controls=[
                         Container(
                             content=Container(on_click=lambda _:page.go('/'),
@@ -111,17 +111,32 @@ def main(page: Page):
                     border_radius=10,
                     color='white',
                     border_color= 'white',
-                    label= 'Add Category'
+                    label= 'Type of Priority (1-5)'
                 ),
-                TextField(
+                Dropdown(
                     height=70, 
                     width=400, 
                     bgcolor=BG,
                     border_radius=10,
                     color='white',
                     border_color= 'white',
-                    label= 'Add Shit Here!'
+                    label="Category",
+                    hint_text="Choose a category of task...",
+                    options=[
+                        dropdown.Option("Business"),
+                        dropdown.Option("Family"),
+                        dropdown.Option("Friends"),
+                    ],
+                    autofocus=True,
                 ),
+                ElevatedButton(
+                    height=50, 
+                    width=400, 
+                    bgcolor=BG,
+                    color='white',
+                    text="Submit", 
+                    on_click=()
+                    )
             ]
         )
     )
