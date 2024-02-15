@@ -1,6 +1,6 @@
 from flet import *
 class CustomCheckBox(UserControl):
-  def __init__(self,color,label='',selection_fill='#183588',size=25,stroke_width=2,animation=None, checked=False, font_size=17, pressed=None):
+  def __init__(self,color,label='',selection_fill='#49ab81',size=25,stroke_width=2,animation=None, checked=False, font_size=17, pressed=None):
     super().__init__()
     self.selection_fill = selection_fill
     self.color = color
@@ -32,10 +32,10 @@ class CustomCheckBox(UserControl):
     return self.check_box
 
   def build(self):
-    self.BG = '#041955'
-    self.FG = '#3450a1'
-    self.PINK = '#eb06ff'
-    self.CHECKED = '#183588'
+    self.BG = '#419873'
+    self.FG = '#398564'
+    self.PINK = '#52bf90'
+    self.CHECKED = '#317256'
 
     if self.checked == True:  
       return Column(controls=[

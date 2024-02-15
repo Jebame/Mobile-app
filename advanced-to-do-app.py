@@ -2,10 +2,10 @@ from flet import *
 from custom_checkbox import CustomCheckBox
 
 def main(page: Page):
-    BG = "#041955"
-    FWG = "#97b4ff"
-    FG = "#3450a1"
-    PINK = "#eb06ff"
+    BG = "#419873"
+    FWG = "#317256"
+    FG = "#398564"
+    BtnsBars = "#52bf90"
     
     def route_change(route):
         page.views.clear()
@@ -47,7 +47,7 @@ def main(page: Page):
                       start_angle=0.0,
                       end_angle=3,
                       stops=[0.5,0.5],
-                  colors=['#00000000', PINK],
+                  colors=['#00000000', BtnsBars],
                   ),
                   width=100,
                   height=100,
@@ -74,8 +74,56 @@ def main(page: Page):
     )
     
     create_task_view = Container(
-        content=Container(on_click=lambda _:page.go('/'),
-            height=40, width=40, content=Text('x'),)
+        width=400,
+        height=850,
+        bgcolor=BG,
+        animate = animation.Animation(600, AnimationCurve.EASE_IN_OUT_BACK),
+        animate_scale = animation.Animation(400, curve='decelerate'),
+        border_radius= 35,
+        padding= padding.only(top=50, left=20, right=20, bottom=5),
+        content=Column(
+            controls=[
+                Row(alignment = 'spaceBetween',
+                    controls=[
+                        Container(
+                            content=Container(on_click=lambda _:page.go('/'),
+                               height=50, width=50,
+                    padding=padding.only(top=10, left=20),
+                    border=border.all(color='white', width=1),border_radius=25, content=Text('x'),)
+                        )
+                    ]
+                ),
+                
+                Container(height=20),
+                TextField(
+                    height=70, 
+                    width=400, 
+                    bgcolor=BG,
+                    border_radius=10,
+                    color='white',
+                    border_color= 'white',
+                    label= 'Add Task'
+                ),
+                TextField(
+                    height=70, 
+                    width=400, 
+                    bgcolor=BG,
+                    border_radius=10,
+                    color='white',
+                    border_color= 'white',
+                    label= 'Add Category'
+                ),
+                TextField(
+                    height=70, 
+                    width=400, 
+                    bgcolor=BG,
+                    border_radius=10,
+                    color='white',
+                    border_color= 'white',
+                    label= 'Add Shit Here!'
+                ),
+            ]
+        )
     )
 
     tasks = Column(
@@ -88,12 +136,12 @@ def main(page: Page):
         tasks.controls.append(
             Container(height=70, 
                       width=400, 
-                      bgcolor=BG,
+                      bgcolor=FWG,
                       border_radius=25,
                       padding=padding.only(
                           left=20,top=20,
                       ),
-                      content = CustomCheckBox(PINK, label = 'Create interesting content!',size=30,),
+                      content = CustomCheckBox(BtnsBars, label = 'Create interesting content!',size=30,),
                       )
         )
 
@@ -104,7 +152,7 @@ def main(page: Page):
     for i, category in enumerate(categories):
         categories_card.controls.append(
             Container(
-                bgcolor=BG, height=110, width=170, border_radius=20, padding=15, 
+                bgcolor=FWG, height=110, width=170, border_radius=20, padding=15, 
                 content=Column(
                     controls=[
                         Text('40 Tasks'),
@@ -116,7 +164,7 @@ def main(page: Page):
                             border_radius=20,
                             padding=padding.only(right=i*2),
                             content=Container(
-                                bgcolor=PINK,
+                                bgcolor=BtnsBars,
                             ),
                         )
                     ]
@@ -142,7 +190,9 @@ def main(page: Page):
                 
                 Container(height=20),
                 Text(
-                    value= 'What\'s up, Jeb!'
+                    size=20,
+                    weight='bold',
+                    value= 'What\'s up, Monisa!'
                 ),
                 Text(
                     value= 'Categories'
@@ -151,14 +201,15 @@ def main(page: Page):
                     padding=padding.only(top=10, bottom=20,),
                     content = categories_card
                 ),
-                Text("TODAY'S TASKS"),
+                Text("Today's Task"),
                 Stack(
                     controls=[
                         tasks,
                         FloatingActionButton(
                             icon= icons.ADD, on_click=lambda _: page.go ('/create_task'),
                             right=20,
-                            bottom=5
+                            bottom=5,
+                            bgcolor=BG,
                         )
                     ]
                 )
@@ -188,7 +239,7 @@ def main(page: Page):
                 ),
                 Container(height=20),
                 circle,
-                Text('Olivia\nMitchel', size=32, weight='bold'),
+                Text('Monisa\nQuino', size=32, weight='bold'),
                 Container(height=20),
                 Row(controls=[
                     Icon(icons.FAVORITE_BORDER_SHARP, color='white12'),
@@ -227,7 +278,7 @@ def main(page: Page):
             )
         ]
     )
-
+    
     container = Container(
         width=500, height=850, bgcolor=BG , border_radius=35, content= Stack(
             controls= [
