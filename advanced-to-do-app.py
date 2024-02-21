@@ -32,6 +32,27 @@ def main(page: Page):
             1, alignment=alignment.center_right,
         )
         page_2.update()
+        
+    def addtTask(p):
+        task_text = TextField.value if TextField else "No Task for Today!"
+        checkBox = CustomCheckBox(BtnsBars, size=30)
+        checkBoxText = Text(value=task_text)
+
+        task_container = Container(
+            height=70,
+            width=400,
+            bgcolor=FWG,
+            border_radius=25,
+            padding=padding.only(left=20, top=25),
+            alignment=alignment.center,
+            content= Row(
+            controls=[checkBox, checkBoxText]
+            )
+        )
+
+        tasks.controls.append(task_container)
+        page_2.update()
+
 
     circle = Stack(
     controls=[
@@ -95,47 +116,22 @@ def main(page: Page):
                 ),
                 
                 Container(height=20),
-                TextField(
+                TextField( 
                     height=70, 
                     width=400, 
                     bgcolor=BG,
                     border_radius=10,
                     color='white',
                     border_color= 'white',
-                    label= 'Add Task'
-                ),
-                TextField(
-                    height=70, 
-                    width=400, 
-                    bgcolor=BG,
-                    border_radius=10,
-                    color='white',
-                    border_color= 'white',
-                    label= 'Type of Priority (1-5)'
-                ),
-                Dropdown(
-                    height=70, 
-                    width=400, 
-                    bgcolor=BG,
-                    border_radius=10,
-                    color='white',
-                    border_color= 'white',
-                    label="Category",
-                    hint_text="Choose a category of task...",
-                    options=[
-                        dropdown.Option("Business"),
-                        dropdown.Option("Family"),
-                        dropdown.Option("Friends"),
-                    ],
-                    autofocus=True,
+                    label= 'Add Task',
                 ),
                 ElevatedButton(
+                    on_click=addtTask,
                     height=50, 
                     width=400, 
                     bgcolor=BG,
                     color='white',
                     text="Submit", 
-                    on_click=()
                     )
             ]
         )
@@ -144,26 +140,15 @@ def main(page: Page):
     tasks = Column(
         height=400, scroll='auto',
         controls=[
-            # Container()
+            #Container
         ]
     )
-    for i in range(10):
-        tasks.controls.append(
-            Container(height=70, 
-                      width=400, 
-                      bgcolor=FWG,
-                      border_radius=25,
-                      padding=padding.only(
-                          left=20,top=20,
-                      ),
-                      content = CustomCheckBox(BtnsBars, label = 'Create interesting content!',size=30,),
-                      )
-        )
+    
 
     categories_card = Row(
         scroll='auto'
     )
-    categories = ['Business', 'Family', 'Friends']
+    categories = ['Self', 'Family or Friends', 'Business']
     for i, category in enumerate(categories):
         categories_card.controls.append(
             Container(
@@ -217,17 +202,17 @@ def main(page: Page):
                     content = categories_card
                 ),
                 Text("Today's Task"),
+                
                 Stack(
                     controls=[
-                        tasks,
-                        FloatingActionButton(
-                            icon= icons.ADD, on_click=lambda _: page.go ('/create_task'),
-                            right=20,
-                            bottom=5,
-                            bgcolor=BG,
-                        )
+                        tasks
                     ]
-                )
+                ),
+                FloatingActionButton(
+                            icon= icons.ADD, on_click=lambda _: page.go ('/create_task'),
+                            width=400,
+                            bgcolor=BG,
+                        ),
             ]
         )
     )
@@ -258,18 +243,13 @@ def main(page: Page):
                 Container(height=20),
                 Row(controls=[
                     Icon(icons.FAVORITE_BORDER_SHARP, color='white12'),
-                    Text('Templates', size=15, weight=FontWeight.W_300, color='white', font_family='poppins')
+                    Text('About Me', size=15, weight=FontWeight.W_300, color='white', font_family='poppins')
                 ]),
                 Container(height=5),
                 Row(controls=[
                     Icon(icons.CARD_TRAVEL, color='white12'),
-                    Text('Templates', size=15, weight=FontWeight.W_300, color='white', font_family='poppins')
+                    Text('Categories', size=15, weight=FontWeight.W_300, color='white', font_family='poppins')
                 ]),
-                Container(height=5),
-                Row(controls=[
-                    Icon(icons.CALCULATE_OUTLINED, color='white12'),
-                    Text('Templates', size=15, weight=FontWeight.W_300, color='white', font_family='poppins')
-                ])
             ]
         )
     )
